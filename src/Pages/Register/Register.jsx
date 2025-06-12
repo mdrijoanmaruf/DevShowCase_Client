@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   FaGoogle,
@@ -11,9 +11,10 @@ import {
   FaEyeSlash,
 } from "react-icons/fa";
 import { AuthContext } from "../../Contexts/AuthContext";
+import Swal from "sweetalert2"; // Import SweetAlert2
 
 const Register = () => {
-  const { createUser, signInWithGoogle , signInWithGithub} = use(AuthContext);
+  const { createUser, signInWithGoogle, signInWithGithub } = useContext(AuthContext); // Fixed context hook
 
   const [formData, setFormData] = useState({
     name: "",
@@ -37,9 +38,24 @@ const Register = () => {
     createUser(formData.email, formData.password)
       .then((result) => {
         console.log(result.user);
+        // Show success alert
+        Swal.fire({
+          title: 'Account Created!',
+          text: 'Your account has been created successfully',
+          icon: 'success',
+          confirmButtonColor: '#38bdf8',
+          timer: 1500
+        });
       })
       .catch((error) => {
         console.error("Error creating user:", error);
+        // Show error alert
+        Swal.fire({
+          title: 'Registration Failed',
+          text: error.message || 'Something went wrong during registration. Please try again.',
+          icon: 'error',
+          confirmButtonColor: '#38bdf8'
+        });
       });
   };
 
@@ -48,9 +64,24 @@ const Register = () => {
     signInWithGoogle()
       .then((result) => {
         console.log("Google Sign-in successful:", result.user);
+        // Show success alert
+        Swal.fire({
+          title: 'Welcome!',
+          text: 'You have successfully signed in with Google',
+          icon: 'success',
+          confirmButtonColor: '#38bdf8',
+          timer: 1500
+        });
       })
       .catch((error) => {
         console.error("Error signing in with Google:", error);
+        // Show error alert
+        Swal.fire({
+          title: 'Google Sign-in Failed',
+          text: error.message || 'Failed to sign in with Google. Please try again.',
+          icon: 'error',
+          confirmButtonColor: '#38bdf8'
+        });
       });
   };
 
@@ -59,9 +90,24 @@ const Register = () => {
     signInWithGithub()
       .then((result) => {
         console.log("GitHub Sign-in successful:", result.user);
+        // Show success alert
+        Swal.fire({
+          title: 'Welcome!',
+          text: 'You have successfully signed in with GitHub',
+          icon: 'success',
+          confirmButtonColor: '#38bdf8',
+          timer: 1500
+        });
       })
       .catch((error) => {
         console.error("Error signing in with GitHub:", error);
+        // Show error alert
+        Swal.fire({
+          title: 'GitHub Sign-in Failed',
+          text: error.message || 'Failed to sign in with GitHub. Please try again.',
+          icon: 'error',
+          confirmButtonColor: '#38bdf8'
+        });
       });
   };
 

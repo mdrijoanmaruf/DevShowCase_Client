@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaGoogle, FaGithub, FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa'
 import { AuthContext } from '../../Contexts/AuthContext'
+import Swal from 'sweetalert2' // Import SweetAlert2
 
 const Login = () => {
   const { signInUser, signInWithGoogle, signInWithGithub } = useContext(AuthContext);
@@ -22,12 +23,29 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    setIsLoading(true)
+    
     signInUser(formData.email, formData.password)
       .then(() => {
         console.log('User signed in successfully')
+        // Show success alert
+        Swal.fire({
+          title: 'Welcome Back!',
+          text: 'You have successfully signed in',
+          icon: 'success',
+          confirmButtonColor: '#38bdf8',
+          timer: 1500
+        });
       })
       .catch((error) => {
         console.error('Error signing in:', error)
+        // Show error alert
+        Swal.fire({
+          title: 'Login Failed',
+          text: error.message || 'Invalid email or password. Please try again.',
+          icon: 'error',
+          confirmButtonColor: '#38bdf8'
+        });
       })
       .finally(() => {
         setIsLoading(false)
@@ -36,12 +54,28 @@ const Login = () => {
 
   const handleGoogleSignIn = () => {
     setIsLoading(true)
+    
     signInWithGoogle()
       .then(() => {
         console.log('Google Sign-in successful')
+        // Show success alert
+        Swal.fire({
+          title: 'Welcome Back!',
+          text: 'You have successfully signed in with Google',
+          icon: 'success',
+          confirmButtonColor: '#38bdf8',
+          timer: 1500
+        });
       })
       .catch((error) => {
         console.error('Error signing in with Google:', error)
+        // Show error alert
+        Swal.fire({
+          title: 'Google Sign-in Failed',
+          text: error.message || 'Failed to sign in with Google. Please try again.',
+          icon: 'error',
+          confirmButtonColor: '#38bdf8'
+        });
       })
       .finally(() => {
         setIsLoading(false)
@@ -50,12 +84,28 @@ const Login = () => {
 
   const handleGithubSignIn = () => {
     setIsLoading(true)
+    
     signInWithGithub()
       .then(() => {
         console.log('GitHub Sign-in successful')
+        // Show success alert
+        Swal.fire({
+          title: 'Welcome Back!',
+          text: 'You have successfully signed in with GitHub',
+          icon: 'success',
+          confirmButtonColor: '#38bdf8',
+          timer: 1500
+        });
       })
       .catch((error) => {
         console.error('Error signing in with GitHub:', error)
+        // Show error alert
+        Swal.fire({
+          title: 'GitHub Sign-in Failed',
+          text: error.message || 'Failed to sign in with GitHub. Please try again.',
+          icon: 'error',
+          confirmButtonColor: '#38bdf8'
+        });
       })
       .finally(() => {
         setIsLoading(false)
