@@ -127,9 +127,6 @@ const Footer = () => {
             </div>
           </div>
         </div>
-
-        {/* Decorative Element */}
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600"></div>
       </div>
     </footer>
   )
