@@ -33,7 +33,7 @@ const Register = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log(formData);
     createUser(formData.email, formData.password)
       .then((result) => {
         console.log(result.user);

@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FaGoogle, FaGithub, FaEnvelope, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa'
+import { AuthContext } from '../../Contexts/AuthContext'
 
 const Login = () => {
+  const { signInUser, signInWithGoogle, signInWithGithub } = useContext(AuthContext);
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -20,26 +22,44 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    setIsLoading(true)
-    
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Login Data:', formData)
-      setIsLoading(false)
-      // Reset form
-      setFormData({
-        email: '',
-        password: ''
+    signInUser(formData.email, formData.password)
+      .then(() => {
+        console.log('User signed in successfully')
       })
-    }, 1000)
+      .catch((error) => {
+        console.error('Error signing in:', error)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   const handleGoogleSignIn = () => {
-    console.log('Google Sign-in clicked')
+    setIsLoading(true)
+    signInWithGoogle()
+      .then(() => {
+        console.log('Google Sign-in successful')
+      })
+      .catch((error) => {
+        console.error('Error signing in with Google:', error)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   const handleGithubSignIn = () => {
-    console.log('GitHub Sign-in clicked')
+    setIsLoading(true)
+    signInWithGithub()
+      .then(() => {
+        console.log('GitHub Sign-in successful')
+      })
+      .catch((error) => {
+        console.error('Error signing in with GitHub:', error)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
 
   return (
