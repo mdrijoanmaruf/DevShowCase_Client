@@ -51,36 +51,36 @@ const About = () => {
 
   const team = [
     {
-      name: 'Alex Chen',
+      name: 'Md Rijoan Maruf',
       role: 'Founder & CEO',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face',
-      bio: 'Full-stack developer with 8+ years of experience in building scalable web applications.',
+      image: 'https://i.ibb.co/0ynz9TGd/saif.jpg',
+      bio: 'Full-stack developer with 3+ years of experience in building scalable web applications.',
       social: {
-        github: '#',
-        linkedin: '#',
-        twitter: '#'
+        github: 'https://github.com/mdrijoanmaruf',
+        linkedin: 'https://www.linkedin.com/in/mdrijoanmaruf',
+        twitter: 'https://x.com/rijianmaruf'
       }
     },
     {
-      name: 'Sarah Johnson',
+      name: 'Raiyyan Islam',
       role: 'CTO',
-      image: 'https://images.unsplash.com/photo-1494790108755-2616b612b647?w=300&h=300&fit=crop&crop=face',
+      image: 'https://i.ibb.co/N2dZt4zq/raiyaan.jpg',
       bio: 'Tech lead specializing in cloud architecture and developer experience optimization.',
       social: {
-        github: '#',
-        linkedin: '#',
-        twitter: '#'
+        github: 'https://github.com/mdrijoanmaruf',
+        linkedin: 'https://www.linkedin.com/in/mdrijoanmaruf',
+        twitter: 'https://x.com/rijianmaruf'
       }
     },
     {
-      name: 'Michael Rodriguez',
+      name: 'Md Osman Goni',
       role: 'Head of Community',
-      image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face',
+      image: 'https://i.ibb.co/6JHTPQwk/osman.jpg',
       bio: 'Community builder passionate about connecting developers and fostering collaboration.',
       social: {
-        github: '#',
-        linkedin: '#',
-        twitter: '#'
+        github: 'https://github.com/mdrijoanmaruf',
+        linkedin: 'https://www.linkedin.com/in/mdrijoanmaruf',
+        twitter: 'https://x.com/rijianmaruf'
       }
     }
   ]
