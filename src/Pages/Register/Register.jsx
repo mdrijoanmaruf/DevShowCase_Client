@@ -1,50 +1,69 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { FaGoogle, FaGithub, FaUser, FaEnvelope, FaLock, FaImage, FaEye, FaEyeSlash } from 'react-icons/fa'
+import React, { use, useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  FaGoogle,
+  FaGithub,
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaImage,
+  FaEye,
+  FaEyeSlash,
+} from "react-icons/fa";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 const Register = () => {
+  const { createUser, signInWithGoogle , signInWithGithub} = use(AuthContext);
+
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    photoUrl: '',
-    password: ''
-  })
-  const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+    name: "",
+    email: "",
+    photoUrl: "",
+    password: "",
+  });
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleInputChange = (e) => {
-    const { name, value } = e.target
-    setFormData(prev => ({
+    const { name, value } = e.target;
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
-    }))
-  }
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setIsLoading(true)
-    
-    // Simulate API call
-    setTimeout(() => {
-      console.log('Registration Data:', formData)
-      setIsLoading(false)
-      // Reset form
-      setFormData({
-        name: '',
-        email: '',
-        photoUrl: '',
-        password: ''
+    e.preventDefault();
+
+    createUser(formData.email, formData.password)
+      .then((result) => {
+        console.log(result.user);
       })
-    }, 1000)
-  }
+      .catch((error) => {
+        console.error("Error creating user:", error);
+      });
+  };
 
   const handleGoogleSignIn = () => {
-    console.log('Google Sign-in clicked')
-  }
+    console.log("Google Sign-in clicked");
+    signInWithGoogle()
+      .then((result) => {
+        console.log("Google Sign-in successful:", result.user);
+      })
+      .catch((error) => {
+        console.error("Error signing in with Google:", error);
+      });
+  };
 
   const handleGithubSignIn = () => {
-    console.log('GitHub Sign-in clicked')
-  }
+    console.log("GitHub Sign-in clicked");
+    signInWithGithub()
+      .then((result) => {
+        console.log("GitHub Sign-in successful:", result.user);
+      })
+      .catch((error) => {
+        console.error("Error signing in with GitHub:", error);
+      });
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 flex items-center justify-center px-4 py-8">
@@ -61,7 +80,8 @@ const Register = () => {
               </h1>
             </div>
             <p className="text-gray-300 text-lg mb-8 max-w-xs">
-              Join our community of innovative developers showcasing cutting-edge projects
+              Join our community of innovative developers showcasing
+              cutting-edge projects
             </p>
             <div className="hidden md:block space-y-4 w-full max-w-xs">
               <button
@@ -71,7 +91,7 @@ const Register = () => {
                 <FaGoogle className="text-red-500" />
                 <span>Sign up with Google</span>
               </button>
-              
+
               <button
                 onClick={handleGithubSignIn}
                 className="w-full flex items-center justify-center space-x-3 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 font-medium"
@@ -84,14 +104,18 @@ const Register = () => {
 
           {/* Right Column - Form */}
           <div className="md:w-3/5 p-8">
-            <h2 className="text-2xl font-bold text-white mb-6">Create Account</h2>
-            
+            <h2 className="text-2xl font-bold text-white mb-6">
+              Create Account
+            </h2>
+
             <form onSubmit={handleSubmit} className="space-y-4">
               {/* Form Fields Row 1 */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Name Field */}
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-300">Full Name</label>
+                  <label className="text-sm font-medium text-gray-300">
+                    Full Name
+                  </label>
                   <div className="relative">
                     <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     <input
@@ -108,7 +132,9 @@ const Register = () => {
 
                 {/* Email Field */}
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-300">Email Address</label>
+                  <label className="text-sm font-medium text-gray-300">
+                    Email Address
+                  </label>
                   <div className="relative">
                     <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     <input
@@ -146,7 +172,9 @@ const Register = () => {
 
                 {/* Password Field */}
                 <div className="space-y-1">
-                  <label className="text-sm font-medium text-gray-300">Password</label>
+                  <label className="text-sm font-medium text-gray-300">
+                    Password
+                  </label>
                   <div className="relative">
                     <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
                     <input
@@ -172,17 +200,9 @@ const Register = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                disabled={isLoading}
-                className="w-full py-3 mt-4 bg-gradient-to-r from-cyan-400 to-blue-500 text-white rounded-lg hover:from-cyan-500 hover:to-blue-600 transition-all duration-300 font-medium shadow-lg hover:shadow-cyan-400/25 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                className="w-full py-3 mt-4 bg-gradient-to-r from-cyan-400 to-blue-500 text-white rounded-lg hover:from-cyan-500 hover:to-blue-600 transition-all duration-300 font-medium shadow-lg hover:shadow-cyan-400/25 transform hover:scale-[1.02]"
               >
-                {isLoading ? (
-                  <div className="flex items-center justify-center space-x-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    <span>Creating Account...</span>
-                  </div>
-                ) : (
-                  'Create Account'
-                )}
+                Create Account
               </button>
             </form>
 
@@ -195,7 +215,7 @@ const Register = () => {
                 <FaGoogle className="text-red-500" />
                 <span>Sign up with Google</span>
               </button>
-              
+
               <button
                 onClick={handleGithubSignIn}
                 className="w-full flex items-center justify-center space-x-3 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-all duration-300 font-medium"
@@ -208,9 +228,9 @@ const Register = () => {
             {/* Login Link */}
             <div className="text-center mt-6">
               <p className="text-gray-300">
-                Already have an account?{' '}
-                <Link 
-                  to="/login" 
+                Already have an account?{" "}
+                <Link
+                  to="/login"
                   className="text-cyan-400 hover:text-cyan-300 font-medium transition-colors duration-300"
                 >
                   Sign in here
@@ -221,7 +241,7 @@ const Register = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Register
+export default Register;
